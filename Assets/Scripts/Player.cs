@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _laserPrefab;
     [SerializeField] private float _fireRate = 0.5f;
     private float _nextFire = -1f;
+    [SerializeField] int _lives = 3;
 
     void Start()
     {
@@ -56,4 +57,14 @@ public class Player : MonoBehaviour
         }
     }
 
-} // End Class
+    public void Damage()
+    {
+        _lives -= 1;
+
+        if (_lives <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+} // Class Ends
