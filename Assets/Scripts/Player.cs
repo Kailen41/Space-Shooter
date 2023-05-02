@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
 
     private void FiringLaser()
     {
-        Vector3 _laserOffset = new Vector3(0f, 0.8f, 0f);
+        Vector3 _laserOffset = new Vector3(0f, 1.05f, 0f);
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > _nextFire)
         {
