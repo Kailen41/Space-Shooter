@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    #region Variables
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private GameObject _enemyContainer;
-    private bool _isSpawnning = false;
+    [SerializeField] private GameObject _tripleshotPowerupPrefab;
+
+    private bool _isEnemySpawnning = false;
+    private bool _isPowerupSpawning = false;
+    #endregion
 
     void Start()
     {
-        StartCoroutine(SpawnRoutine());
+        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnPowerupRoutine());
     }
 
-    IEnumerator SpawnRoutine()
+    #region Enumerators
+    IEnumerator SpawnEnemyRoutine()
     {
-        while (_isSpawnning ==  false) 
+        while (_isEnemySpawnning ==  false) 
         {
             Vector3 _posToSpawn = new Vector3(Random.Range(-8.5f, 8.5f), 8, 0);
             GameObject _newEnemy = Instantiate(_enemyPrefab, _posToSpawn, Quaternion.identity);
@@ -24,9 +31,21 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    IEnumerator SpawnPowerupRoutine()
+    {
+        while (_isPowerupSpawning == false)
+        {
+            Vector3 _posToSpawn = new Vector3(Random.Range(-8.5f, 8.5f), 8, 0);
+            Instantiate(_tripleshotPowerupPrefab, _posToSpawn, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(10f, 30f));
+        }
+    }
+    #endregion
+
     public void OnPlayerDeath()
     {
-        _isSpawnning = true;
+        _isEnemySpawnning = true;
+        _isPowerupSpawning = true;
     }
 
 } // Class Ends
