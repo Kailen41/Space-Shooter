@@ -5,6 +5,7 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     [SerializeField] private float _powerUpSpeed = 3f;
+    [SerializeField] private int _powerUpID; //0 = Trip Shot, 1 = Speed, 2 = Shield
 
     void Update()
     {
@@ -18,7 +19,20 @@ public class PowerUp : MonoBehaviour
             Player _player = other.transform.GetComponent<Player>();
             if (_player != null)
             {
-                _player.TripleshotActive();
+                switch (_powerUpID)
+                {
+                    case 0:
+                        _player.TripleshotActive();
+                        break;
+                    case 1:
+                        _player.SpeedBoostActive();
+                        break;
+                    case 2:
+                        Debug.Log("Shield Obtained");
+                        break;
+                    default:
+                        break;
+                }
             }
 
             Destroy(this.gameObject);

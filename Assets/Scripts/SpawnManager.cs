@@ -7,7 +7,7 @@ public class SpawnManager : MonoBehaviour
     #region Variables
     [SerializeField] private GameObject _enemyPrefab;
     [SerializeField] private GameObject _enemyContainer;
-    [SerializeField] private GameObject _tripleshotPowerupPrefab;
+    [SerializeField] private GameObject[] _powerups;
 
     private bool _isEnemySpawnning = false;
     private bool _isPowerupSpawning = false;
@@ -36,8 +36,9 @@ public class SpawnManager : MonoBehaviour
         while (_isPowerupSpawning == false)
         {
             Vector3 _posToSpawn = new Vector3(Random.Range(-8.5f, 8.5f), 8, 0);
-            Instantiate(_tripleshotPowerupPrefab, _posToSpawn, Quaternion.identity);
-            yield return new WaitForSeconds(Random.Range(10f, 30f));
+            int _randomPowerup = Random.Range(0, 2);
+            Instantiate(_powerups[_randomPowerup], _posToSpawn, Quaternion.identity);
+            yield return new WaitForSeconds(Random.Range(5f, 15f));
         }
     }
     #endregion
@@ -46,6 +47,7 @@ public class SpawnManager : MonoBehaviour
     {
         _isEnemySpawnning = true;
         _isPowerupSpawning = true;
+        Destroy(this.gameObject);
     }
 
 } // Class Ends

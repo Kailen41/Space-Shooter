@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     #region Variables
     [SerializeField] private float _speed = 3.5f;
+    private float _speedMultiplier = 2;
     [SerializeField] private float _fireRate = 0.5f;
     private float _nextFire = -1f;
 
@@ -17,7 +18,8 @@ public class Player : MonoBehaviour
 
     private SpawnManager _spawnManager;
 
-    [SerializeField] private bool _isTripleShotActive = false;
+    private bool _isTripleShotActive = false;
+    private bool _isSpeedBoostActive = false;
     #endregion
 
     private void Start()
@@ -42,6 +44,13 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         _isTripleShotActive = false;
+    }
+
+    IEnumerator SpeedBoostPowerDownRoutine()
+    {
+        yield return new WaitForSeconds(5f);
+        _isSpeedBoostActive = false;
+        _speed /= _speedMultiplier;
     }
 
     private void PlayerMovement()
@@ -102,6 +111,13 @@ public class Player : MonoBehaviour
     {
         _isTripleShotActive = true;
         StartCoroutine(TripleshotPowerDown());
+    }
+
+    public void SpeedBoostActive()
+    {
+        _isSpeedBoostActive = true;
+        _speed *= _speedMultiplier;
+        StartCoroutine(SpeedBoostPowerDownRoutine());
     }
     #endregion
 
