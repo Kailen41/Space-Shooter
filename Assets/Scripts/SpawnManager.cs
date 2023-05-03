@@ -19,7 +19,7 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnPowerupRoutine());
     }
 
-    #region Enumerators
+    #region Custom Functions
     IEnumerator SpawnEnemyRoutine()
     {
         while (_isEnemySpawnning ==  false) 
@@ -41,7 +41,6 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(5f, 15f));
         }
     }
-    #endregion
 
     public void OnPlayerDeath()
     {
@@ -49,5 +48,6 @@ public class SpawnManager : MonoBehaviour
         _isPowerupSpawning = true;
         Destroy(this.gameObject);
     }
+    #endregion
 
 } // Class Ends
