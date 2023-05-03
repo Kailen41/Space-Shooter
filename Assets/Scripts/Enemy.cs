@@ -8,9 +8,27 @@ public class Enemy : MonoBehaviour
 
     private Player _player;
 
+    private Animator _animator;
+
+    private BoxCollider2D _collider;
+
     private void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
+
+        if (_player == null)
+        {
+            Debug.LogError("_player is NULL!");
+        }
+
+        _animator = GetComponent<Animator>();
+
+        if (_animator == null)
+        {
+            Debug.LogError("_animator is NULL!");
+        }
+
+        _collider = GetComponent<BoxCollider2D>();
     }
 
     void Update()
@@ -29,7 +47,10 @@ public class Enemy : MonoBehaviour
                 _player.Damage();
             }
 
-            Destroy(this.gameObject);
+            _animator.SetTrigger("OnEnemyDeath");
+            _enemySpeed = 0;
+            _collider.enabled = false;
+            Destroy(this.gameObject, 2.8f);
         }
         else if (other.CompareTag("Laser"))
         {
@@ -40,7 +61,10 @@ public class Enemy : MonoBehaviour
                 _player.AddScore(10);
             }
 
-            Destroy(this.gameObject);
+            _animator.SetTrigger("OnEnemyDeath");
+            _enemySpeed = 0;
+            _collider.enabled = false;
+            Destroy(this.gameObject, 2.8f);
         }
     }
 

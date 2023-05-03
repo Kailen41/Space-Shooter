@@ -13,15 +13,11 @@ public class SpawnManager : MonoBehaviour
     private bool _isPowerupSpawning = false;
     #endregion
 
-    void Start()
-    {
-        StartCoroutine(SpawnEnemyRoutine());
-        StartCoroutine(SpawnPowerupRoutine());
-    }
-
     #region Custom Functions
     IEnumerator SpawnEnemyRoutine()
     {
+        yield return new WaitForSeconds(3f);
+
         while (_isEnemySpawnning ==  false) 
         {
             Vector3 _posToSpawn = new Vector3(Random.Range(-8.5f, 8.5f), 8, 0);
@@ -33,6 +29,8 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnPowerupRoutine()
     {
+        yield return new WaitForSeconds(3f);
+
         while (_isPowerupSpawning == false)
         {
             Vector3 _posToSpawn = new Vector3(Random.Range(-8.5f, 8.5f), 8, 0);
@@ -47,6 +45,12 @@ public class SpawnManager : MonoBehaviour
         _isEnemySpawnning = true;
         _isPowerupSpawning = true;
         Destroy(this.gameObject);
+    }
+
+    public void StartSpawning()
+    {
+        StartCoroutine(SpawnEnemyRoutine());
+        StartCoroutine(SpawnPowerupRoutine());
     }
     #endregion
 
