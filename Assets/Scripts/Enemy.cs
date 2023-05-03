@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
 
     private BoxCollider2D _collider;
 
+    private AudioSource _audioSource;
+
     private void Start()
     {
         _player = GameObject.Find("Player").GetComponent<Player>();
@@ -29,6 +31,18 @@ public class Enemy : MonoBehaviour
         }
 
         _collider = GetComponent<BoxCollider2D>();
+
+        if (_collider == null)
+        {
+            Debug.LogError("_collider is  NULL!");
+        }
+
+        _audioSource = GetComponent<AudioSource>();
+
+        if (_audioSource ==  null)
+        {
+            Debug.LogError("_audioSource on enemy is NULL!");
+        }
     }
 
     void Update()
@@ -50,6 +64,7 @@ public class Enemy : MonoBehaviour
             _animator.SetTrigger("OnEnemyDeath");
             _enemySpeed = 0;
             _collider.enabled = false;
+            _audioSource.Play();
             Destroy(this.gameObject, 2.8f);
         }
         else if (other.CompareTag("Laser"))
@@ -64,6 +79,7 @@ public class Enemy : MonoBehaviour
             _animator.SetTrigger("OnEnemyDeath");
             _enemySpeed = 0;
             _collider.enabled = false;
+            _audioSource.Play();
             Destroy(this.gameObject, 2.8f);
         }
     }

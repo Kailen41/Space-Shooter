@@ -5,7 +5,10 @@ using UnityEngine;
 public class PowerUp : MonoBehaviour
 {
     [SerializeField] private float _powerUpSpeed = 3f;
+
     [SerializeField] private int _powerUpID; //0 = Trip Shot, 1 = Speed, 2 = Shield
+
+    [SerializeField] private AudioClip _clip;
 
     void Update()
     {
@@ -17,6 +20,9 @@ public class PowerUp : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Player _player = other.transform.GetComponent<Player>();
+
+            AudioSource.PlayClipAtPoint(_clip, transform.position);
+
             if (_player != null)
             {
                 switch (_powerUpID)
