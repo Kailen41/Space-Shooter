@@ -24,4 +24,12 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(1);
         }
     }
+
+    private void QuittingTheGame()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
 }

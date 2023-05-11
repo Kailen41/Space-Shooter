@@ -101,7 +101,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4067f3e6415169a4395f0907f5daaf10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemySpeed: 7
+  _enemySpeed: 6
+  _enemyLaserPrefab: {fileID: 7993566717661822484, guid: 69bbb079fc527504db637698237889b7, type: 3}
 --- !u!50 &7176424120351699781
 Rigidbody2D:
   serializedVersion: 4

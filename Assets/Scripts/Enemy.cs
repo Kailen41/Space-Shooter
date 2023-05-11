@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _enemySpeed = 4f;
+    private float _fireRate = 3.0f;
+    private float _nextFire = -1.0f;
 
     private Player _player;
 
@@ -13,6 +16,8 @@ public class Enemy : MonoBehaviour
     private BoxCollider2D _collider;
 
     private AudioSource _audioSource;
+
+    [SerializeField] private GameObject _enemyLaserPrefab;
 
     private void Start()
     {
@@ -48,6 +53,19 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         EnemyMovement();
+
+        if (Time.time > _nextFire)
+        {
+            _fireRate = Random.Range(3.0f, 7.0f);
+            _nextFire = Time.time + _fireRate;
+            GameObject _enemyLaser = Instantiate(_enemyLaserPrefab, transform.position, Quaternion.identity);
+            Laser[] _lasers = _enemyLaser.GetComponentsInChildren<Laser>();
+
+            for (int i = 0; i < _lasers.Length; i++)
+            {
+                _lasers[i].AssignEnemyLaser();
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
